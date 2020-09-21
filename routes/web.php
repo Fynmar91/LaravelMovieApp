@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+use App\Http\Controllers\MovieController;
+
+Route::get('/', [MovieController::class, 'index']);
+Route::get('/edit/{id}', [MovieController::class, 'edit']);
+Route::get('/show/{id}', [MovieController::class, 'show']);
+Route::get('/create', [MovieController::class, 'create']);
+Route::post('/store', [MovieController::class, 'store']);
+Route::post('/update/{id}', [MovieController::class, 'update']);

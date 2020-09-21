@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -13,7 +14,8 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        $movies = Movie::all();
+        return view('movie', ['movies'=>$movies, 'layout'=>'index']);
     }
 
     /**
@@ -23,7 +25,8 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        $movies = Movie::all();
+        return view('movie', ['movies'=>$movies, 'layout'=>'create']);
     }
 
     /**
@@ -34,7 +37,11 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $movie = new Movie();
+        $movie->name = $request->input('name');
+        $movie->releaseDate = $request->input('releaseDate');
+        $movie->save();
+        return redirect('/');
     }
 
     /**
@@ -45,7 +52,9 @@ class MovieController extends Controller
      */
     public function show($id)
     {
-        //
+        $movie = Movie::find($id);
+        $movies = Movie::all();
+        return view('movie', ['movies'=>$movies, 'movie'=>$movie, 'layout'=>'show']);
     }
 
     /**
@@ -56,7 +65,9 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
-        //
+        $movie = Movie::find($id);
+        $movies = Movie::all();
+        return view('movie', ['movies'=>$movies, 'movie'=>$movie, 'layout'=>'edit']);
     }
 
     /**
@@ -68,7 +79,11 @@ class MovieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $movie = Movie::find($id);
+        $movie->name = $request->input('name');
+        $movie->releaseDate = $request->input('releaseDate');
+        $movie->save();
+        return redirect('/');
     }
 
     /**
@@ -79,6 +94,8 @@ class MovieController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $movie = Movie::find($id);
+        $movie->delete();
+        return redirect('/');
     }
 }
