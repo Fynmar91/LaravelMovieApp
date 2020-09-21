@@ -25,3 +25,4 @@ Route::get('/show/{id}', [MovieController::class, 'show']);
 Route::get('/create', [MovieController::class, 'create']);
 Route::post('/store', [MovieController::class, 'store']);
 Route::post('/update/{id}', [MovieController::class, 'update']);
+Route::post('/delete/{id}', [MovieController::class, 'destroy']);
